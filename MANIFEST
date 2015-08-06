@@ -11,4 +11,5 @@ bin/run_utax.pl
 
 # test scripts
 t/01_script_compiles.t
+t/02_script_runs_without_parameters.t
 t/Run-Utax.t
