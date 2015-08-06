@@ -9,15 +9,15 @@ A perl wrapper to run utax on a given input set
 
 | Branch | Build result |
 |--------|--------------|
-| Master | [[https://travis-ci.org/greatfireball/fast-aqx-_processor][https://travis-ci.org/greatfireball/Run-Utax.svg?branch=master]]            |
-| Develop | [[https://travis-ci.org/greatfireball/fast-aqx-_processor][https://travis-ci.org/greatfireball/Run-Utax.svg?branch=develop]]            |
+| Master | [[https://travis-ci.org/greatfireball/Run-Utax][https://travis-ci.org/greatfireball/Run-Utax.svg?branch=master]]            |
+| Develop | [[https://travis-ci.org/greatfireball/Run-Utax][https://travis-ci.org/greatfireball/Run-Utax.svg?branch=develop]]            |
 
 ** Coverage
 
 | Branch | Build result |
 |--------|--------------|
-| Master | [[https://coveralls.io/r/greatfireball/fast-aqx-_processor][https://coveralls.io/repos/greatfireball/Run-Utax/badge.svg?branch=master]]            |
-| Develop | [[https://coveralls.io/r/greatfireball/fast-aqx-_processor][https://coveralls.io/repos/greatfireball/Run-Utax/badge.svg?branch=develop]]            |
+| Master | [[https://coveralls.io/r/greatfireball/Run-Utax][https://coveralls.io/repos/greatfireball/Run-Utax/badge.svg?branch=master&service=github]]            |
+| Develop | [[https://coveralls.io/r/greatfireball/Run-Utax][https://coveralls.io/repos/greatfireball/Run-Utax/badge.svg?branch=develop&service=github]]            |
 
 ** Installation
 
