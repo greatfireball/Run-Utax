@@ -10,4 +10,5 @@ lib/Run/Utax.pm
 bin/run_utax.pl
 
 # test scripts
+t/01_script_compiles.t
 t/Run-Utax.t
