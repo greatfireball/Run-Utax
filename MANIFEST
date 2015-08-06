@@ -13,4 +13,5 @@ bin/run_utax.pl
 t/01_script_compiles.t
 t/02_script_runs_without_parameters.t
 t/03_script_runs_with_help_requested.t
+t/04_script_runs_with_man_requested.t
 t/Run-Utax.t
