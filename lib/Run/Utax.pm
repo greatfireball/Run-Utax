@@ -8,8 +8,9 @@ our @ISA = qw();
 
 our $VERSION = '0.1';
 
-
-# Preloaded methods go here.
+sub run
+{
+}
 
 1;
 __END__
