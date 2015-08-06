@@ -6,7 +6,7 @@ WriteMakefile(
     NAME              => 'Run::Utax',
     VERSION_FROM      => 'lib/Run/Utax.pm', # finds $VERSION
     PREREQ_PM         => {
-	'Test::Script' => 0,  # this script is required to test the wrapper script
+	'Test::Script' => 1.10,  # this script is required to test the wrapper script
     }, # e.g., Module::Name => 1.1
     EXE_FILES         => [
 	"bin/run_utax.pl"
