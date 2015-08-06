@@ -1,6 +1,13 @@
+# special files
 Makefile.PL
 MANIFEST
 README.org
-t/Run-Utax.t
+
+# module files
 lib/Run/Utax.pm
+
+# script files
 bin/run_utax.pl
+
+# test scripts
+t/Run-Utax.t
