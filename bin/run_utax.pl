@@ -38,6 +38,8 @@ pod2usage(-exitval => 0, -verbose => 2) if $man;
 # the module providing the given arguments
 my $utaxrun= Run::Utax->new(@ARGV);
 
+$utaxrun->run();
+
 __END__
 
 =encoding UTF-8
