@@ -8,6 +8,8 @@ our @ISA = qw();
 
 our $VERSION = '0.1';
 
+use File::Which qw(which);
+
 =head2 new()
 
 This subroutine creates a new object instance of Run::Utax
@@ -35,8 +37,84 @@ sub new
     return $self;
 }
 
+=head2 usearchpath
+
+This setter/getter sets or returns the path for the usearch program
+
+=cut
+
+sub usearchpath
+{
+    my $self = shift;
+
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $param = shift;
+	$self->{_utaxpath} = $param;
+    }
+
+    # finally return the value
+    return $self->{_utaxpath};
+}
+
 sub run
 {
+
+    my $self = shift @_;
+
+    $self->_parse_and_check_utax();
+
+}
+
+=head1 Private subroutines
+
+=head2 _parse_and_check_utax()
+
+This subroutine checks is the utax program is available. Therefore the user can provide the program using three different ways:
+
+=over 4
+
+=item 1) Program usearch is available in path
+
+=item 2) Environmental variable USEARCHPATH
+
+=item 3) Parameter -usearchpath
+
+=back
+
+=cut
+
+sub _parse_and_check_utax
+{
+    my $self = shift;
+
+    # check if we have a usearch program available in the PATH
+    my $utax_path = which('usearch8');
+
+    # if the search using the PATH variable wasn't successful we need
+    # to search for USEARCHPROGRAM
+    if (! defined $utax_path && exists $ENV{USEARCHPROGRAM})
+    {
+	$utax_path = $ENV{USEARCHPROGRAM};
+    }
+
+    # did we succeed in finding a usearch file?
+    unless (defined $utax_path)
+    {
+	die "Unable to find usearch program!\n";
+    }
+
+    # before using the command, we want to check if it is executable
+    unless (-x $utax_path)
+    {
+	die "Unable to execute the usearch file on location '$utax_path'\n";
+    }
+
+    # here we have the program
+    $self->usearchpath($utax_path);
+
+    return $self;
 }
 
 1;
