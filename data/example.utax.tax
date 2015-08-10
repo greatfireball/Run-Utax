@@ -1,0 +1,178 @@
+0	-1	Root	rootrank
+1	0	k__super__Eukaryota_2759	kingdom
+2	1	p__Bacillariophyta_2836	phylum
+3	2	c__Bacillariophyceae_33849	class
+4	3	o__Bacillariales_33851	order
+5	4	f__Bacillariaceae_33852	family
+6	5	g__Pseudo-nitzschia_41953	genus
+7	6	s__Pseudo-nitzschia pungens_37318	species
+8	6	s__Pseudo-nitzschia brasiliana_195935	species
+9	3	o__Naviculales_38748	order
+10	9	f__Naviculaceae_67474	family
+11	10	g__Navicula_50949	genus
+12	11	s__Navicula phyllepta_265527	species
+13	6	s__Pseudo-nitzschia delicatissima_44447	species
+14	6	s__Pseudo-nitzschia fraudulenta_183588	species
+15	6	s__Pseudo-nitzschia pseudodelicatissima_178779	species
+16	9	f__Phaeodactylaceae_38749	family
+17	16	g__Phaeodactylum_2849	genus
+18	17	s__Phaeodactylum tricornutum_2850	species
+19	6	s__Pseudo-nitzschia seriata_186176	species
+20	6	s__Pseudo-nitzschia calliantha_237456	species
+21	5	g__Nitzschia_2857	genus
+22	21	s__Nitzschia sp. CCMP2041_659519	species
+23	11	s__Navicula gregaria_355633	species
+24	6	s__Pseudo-nitzschia americana_44446	species
+25	5	g__Cylindrotheca_2852	genus
+26	25	s__Cylindrotheca closterium_2856	species
+27	6	s__Pseudo-nitzschia caciantha_237457	species
+28	6	s__Pseudo-nitzschia turgidula_58161	species
+29	6	s__Pseudo-nitzschia multiseries_37319	species
+30	6	s__Pseudo-nitzschia dolorosa_365524	species
+31	6	s__Pseudo-nitzschia lineola_1041513	species
+32	5	g__Fragilariopsis_186035	genus
+33	32	s__Fragilariopsis kerguelensis_186038	species
+34	3	o__Achnanthales_186023	order
+35	34	f__Achnanthaceae_216726	family
+36	35	g__Achnanthes_216727	genus
+37	36	s__Achnanthes brevipes_265541	species
+38	11	s__Navicula trivialis_649857	species
+39	3	o__undef__0	order
+40	39	f__Gomphonemataceae_97225	family
+41	40	g__Gomphonema_97226	genus
+42	41	s__Gomphonema parvulum_97227	species
+43	3	o__Eunotiales_196635	order
+44	43	f__Eunotiaceae_196636	family
+45	44	g__Eunotia_196637	genus
+46	45	s__Eunotia bilunaris_303395	species
+47	6	s__Pseudo-nitzschia galaxiae_189737	species
+48	6	s__Pseudo-nitzschia cuspidata_237455	species
+49	9	f__Sellaphoraceae_216739	family
+50	49	g__Sellaphora_216740	genus
+51	50	s__Sellaphora pupula_216741	species
+52	10	g__Haslea_67475	genus
+53	52	s__Haslea ostrearia_67476	species
+54	6	s__Pseudo-nitzschia cf. subpacifica_185985	species
+55	6	s__Pseudo-nitzschia decipiens_365525	species
+56	6	s__Pseudo-nitzschia australis_44445	species
+57	6	s__Pseudo-nitzschia batesiana_1388883	species
+58	5	g__Tryblionella_913972	genus
+59	58	s__Tryblionella compressa_913974	species
+60	6	s__Pseudo-nitzschia lundholmiae_1388884	species
+61	50	s__Sellaphora laevissima_221717	species
+62	50	s__Sellaphora capitata_433412	species
+63	6	s__Pseudo-nitzschia kodamae_1486384	species
+64	5	g__Bacillaria_3002	genus
+65	64	s__Bacillaria paxillifer_3003	species
+66	32	s__Fragilariopsis nana_470313	species
+67	6	s__Pseudo-nitzschia multistriata_183589	species
+68	6	s__Pseudo-nitzschia cf. australis_266797	species
+69	11	s__Navicula cryptocephala_138538	species
+70	6	s__Pseudo-nitzschia plurisecta_1274958	species
+71	6	s__Pseudo-nitzschia mannii_587315	species
+72	6	s__Pseudo-nitzschia abrensis_1274957	species
+73	6	s__Pseudo-nitzschia fukuyoi_1388885	species
+74	32	s__Fragilariopsis sp. CCMP2038_659510	species
+75	3	o__undef__1	order
+76	75	f__Entomoneidaceae_186041	family
+77	76	g__Entomoneis_186042	genus
+78	77	s__Entomoneis cf. alata_216750	species
+79	3	o__Thalassiophysales_216758	order
+80	79	f__Catenulaceae_59795	family
+81	80	g__Amphora_59796	genus
+82	81	s__Amphora sp. PP-2011_1052887	species
+83	6	s__Pseudo-nitzschia arenysensis_697910	species
+84	6	s__Pseudo-nitzschia turgiduloides_236271	species
+85	21	s__Nitzschia microcephala_1051713	species
+86	6	s__Pseudo-nitzschia subpacifica_511754	species
+87	6	s__Pseudo-nitzschia sp. 1 MLR-2013_1379464	species
+88	6	s__Pseudo-nitzschia micropora_186175	species
+89	32	s__Fragilariopsis oceanica_858357	species
+90	32	s__Fragilariopsis curta_186040	species
+91	9	f__Pleurosigmataceae_197751	family
+92	91	g__Pleurosigma_197752	genus
+93	92	s__Pleurosigma strigosum_1514139	species
+94	6	s__Pseudo-nitzschia hasleana_1041512	species
+95	11	s__Navicula sp. ETS 07_644545	species
+96	21	s__uncultured Nitzschia_654895	species
+97	9	f__Amphipleuraceae_265535	family
+98	97	g__Amphiprora_265536	genus
+99	98	s__Amphiprora paludosa_265537	species
+100	6	s__Pseudo-nitzschia granii_476440	species
+101	32	s__Fragilariopsis reginae-jahniae_858358	species
+102	6	s__Pseudo-nitzschia sp. A2ni_1514165	species
+103	5	g__Neodenticula_912664	genus
+104	103	s__Neodenticula seminae_912665	species
+105	11	s__Navicula sp. CCMP2024_659517	species
+106	81	s__Amphora sp. CCMP1405_288119	species
+107	41	s__Gomphonema narodoense_1407070	species
+108	6	s__Pseudo-nitzschia fryxelliana_1041511	species
+109	32	s__Fragilariopsis cylindrus_186039	species
+110	41	s__Gomphonema exilissimum_1223579	species
+111	32	s__Fragilariopsis sp. DITS004-08_659507	species
+112	52	s__Haslea karadagensis_1146996	species
+113	21	s__Nitzschia pusilla_270628	species
+114	81	s__Amphora salina_655748	species
+115	41	s__Gomphonema lagenula_1223576	species
+116	32	s__Fragilariopsis sp. NL-2010_858360	species
+117	11	s__Navicula salinicola_63141	species
+118	3	o__Surirellales_216751	order
+119	118	f__undef__2	family
+120	119	g__Surirella_216753	genus
+121	120	s__Surirella sp. CCAP 1071/2_1034820	species
+122	41	s__Gomphonema saprophilum_1407069	species
+123	92	s__Pleurosigma elongatum_1048731	species
+124	9	f__Stauroneidaceae_265582	family
+125	124	g__Stauroneis_265583	genus
+126	125	s__Stauroneis constricta_265584	species
+127	11	s__Navicula perminuta_908977	species
+128	6	s__Pseudo-nitzschia sp. A3ni_1514166	species
+129	5	g__Psammodictyon_265580	genus
+130	129	s__Psammodictyon panduriforme_265581	species
+131	32	s__Fragilariopsis vanheurckii_858359	species
+132	41	s__Gomphonema cf. lagenula LK-2012_1223581	species
+133	6	s__Pseudo-nitzschia cf. pseudodelicatissima_186017	species
+134	6	s__Pseudo-nitzschia cf. turgidula_476439	species
+135	25	s__Cylindrotheca fusiformis_2853	species
+136	81	s__Amphora coffeiformis_265554	species
+137	98	s__Amphiprora alata_265553	species
+138	11	s__Navicula sp. CCMP2025_659518	species
+139	21	s__Nitzschia cf. fonticola BA34_1051709	species
+140	6	s__Pseudo-nitzschia cf. delicatissima_1001702	species
+141	21	s__Nitzschia sp. 1 CCL-2013_1430304	species
+142	21	s__Nitzschia palea_303400	species
+143	32	s__Fragilariopsis sp. DITS002-08_659509	species
+144	6	s__Pseudo-nitzschia sp. CCMP2035_659522	species
+145	36	s__Achnanthes cf. longipes_555751	species
+146	6	s__Pseudo-nitzschia cf. granii_655801	species
+147	77	s__Entomoneis punctulata_1051708	species
+148	6	s__Pseudo-nitzschia heimii_476441	species
+149	11	s__Navicula arenaria_355634	species
+150	6	s__Pseudo-nitzschia sp. AL-2009a_680267	species
+151	6	s__uncultured Pseudo-nitzschia_418135	species
+152	21	s__Nitzschia epithemoides_1034830	species
+153	125	s__Stauroneis amphoroides_655802	species
+154	10	g__Fistulifera_880756	genus
+155	154	s__Fistulifera saprophila_880757	species
+156	21	s__Nitzschia ovalis_908985	species
+157	11	s__Navicula cf. phylepta DITS375-08_1055703	species
+158	32	s__Fragilariopsis sp. DITS003-08_659508	species
+159	21	s__Nitzschia alexandrina_270625	species
+160	6	s__Pseudo-nitzschia sp. CCMP1309_265592	species
+161	81	s__Amphora sp. MACC 9_1537484	species
+162	21	s__Nitzschia laevis_186029	species
+163	6	s__Pseudo-nitzschia subcurvata_364747	species
+164	6	s__Pseudo-nitzschia sp. Hobart5_237454	species
+165	52	s__Haslea crucigera_197754	species
+166	21	s__Nitzschia longissima_309721	species
+167	34	f__undef__3	family
+168	167	g__Pauliella_186024	genus
+169	168	s__Pauliella taeniata_186025	species
+170	21	s__Nitzschia bizertensis_1435210	species
+171	25	s__Cylindrotheca sp. CCAP 1017/7_1034816	species
+172	52	s__Haslea sp. VL-2012_1146997	species
+173	6	s__Pseudo-nitzschia subfraudulenta_183590	species
+174	21	s__Nitzschia closterium_265526	species
+175	6	s__Pseudo-nitzschia circumpora_1073398	species
+176	6	s__Pseudo-nitzschia inflatula_186018	species
+177	32	s__Fragilariopsis rhombica_186037	species
