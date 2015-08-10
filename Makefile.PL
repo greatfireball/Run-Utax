@@ -5,7 +5,12 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME              => 'Run::Utax',
     VERSION_FROM      => 'lib/Run/Utax.pm', # finds $VERSION
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
+    PREREQ_PM         => {
+	'Test::Script' => 1.10,  # this script is required to test the wrapper script
+    }, # e.g., Module::Name => 1.1
+    EXE_FILES         => [
+	"bin/run_utax.pl"
+    ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Run/Utax.pm', # retrieve abstract from module
        AUTHOR         => 'Frank Förster <frank@>') : ()),

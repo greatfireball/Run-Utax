@@ -37,7 +37,7 @@ To install this module type the following:
 
 ** Dependencies
 This module requires the following other modules:
-     - None so far
+     - Test::Script to test the wrapper script
 ** Revision history
 *** Version 0.1
 0.1  Thu Aug  6 01:42:24 2015

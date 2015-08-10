@@ -1,35 +1,64 @@
-package Run::Utax;
+#!/usr/bin/env perl
 
-use 5.010000;
 use strict;
 use warnings;
 
-our @ISA = qw();
+use Run::Utax;
 
-our $VERSION = '0.1';
+# Make sure that we get the manual printed if no parameters are given
+# or help is requested.
 
-sub run
+use Pod::Usage;
+
+my $man = 0;
+my $help = 0;
+
+# check if help or man is given inside of @ARGV
+foreach my $param (@ARGV)
 {
+    if ($param eq "--help" || $param eq "-h")
+    {
+	$help = 1;
+    }
+
+    if ($param eq "--man" || $param eq "-m")
+    {
+	$man = 1;
+    }
 }
 
-1;
+# if the argument list is empty the help should be printed anyway
+
+$help = 1 unless (@ARGV);
+
+pod2usage(1) if $help;
+pod2usage(-exitval => 0, -verbose => 2) if $man;
+
+# if we do not need to provide help we can call the main function of
+# the module providing the given arguments
+Run::Utax::run(@ARGV);
+
 __END__
+
+=encoding UTF-8
 
 =head1 NAME
 
-Run::Utax - Perl module which is utilized by the run_utax.pl script
+run_utax.pl - Perl wrapper to run utax for a given dataset
 
 =head1 SYNOPSIS
 
-  use Run::Utax;
+  ./run_utax.pl --database utax.db --infile input.fasta --outfile output.fasta
+
+=head1 VERSION
+
+0.1
 
 =head1 DESCRIPTION
 
-=head1 SEE ALSO
-
 =head1 AUTHOR
 
-Frank Förster, E<lt>foersterfrank@gmx.de<gt>
+Frank Förster, E<lt>foersterfrank@gmx.deE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -56,3 +85,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 =cut
+
