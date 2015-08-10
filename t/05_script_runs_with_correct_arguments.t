@@ -12,7 +12,6 @@ my $script_args = [
 		   '--taxonomy', 'all.utax.tax',
                    '--input', 'test.fa',
                    '--output', 'utax.out',
-		   '--utax', 'blib/bin/usearch8'
                   ];
 my $options = {
                 exit => 0
@@ -41,7 +40,7 @@ $script_args = [
 		   '--taxonomy', 'all.utax.tax',
                    '--input', 'test.fa',
                    '--output', 'utax.out',
-		   '--utax', 'blib/bin/usearch8'
+		   '--utax', 'blib/script/usearch8'
                   ];
 $options = {
                 exit => 0

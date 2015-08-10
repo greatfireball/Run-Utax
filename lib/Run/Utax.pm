@@ -9,6 +9,7 @@ our @ISA = qw();
 our $VERSION = '0.1';
 
 use File::Which qw(which);
+use Getopt::Long qw(GetOptionsFromArray :config pass_through);
 
 =head2 new()
 
@@ -97,6 +98,11 @@ sub _parse_and_check_utax
     {
 	$utax_path = $ENV{USEARCHPROGRAM};
     }
+
+    # finally we try to parse the command line options
+    GetOptionsFromArray($self->{_orig_argv},
+			'u|utax=s' => \$utax_path
+	);
 
     # did we succeed in finding a usearch file?
     unless (defined $utax_path)

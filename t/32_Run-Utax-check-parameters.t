@@ -54,7 +54,7 @@ $utaxrun->_parse_and_check_utax();
 is($utaxrun->usearchpath, "blib/script/usearch8", 'usearch8 was found using short comand line option');
 
 # test if we die, if the utax_file is not executable
-$utaxrun = new_ok('Run::Utax' => ['-u', 'blib/script/usearch8_non_exec'], 'unexecutable utax via short command line argument given');
+$utaxrun = new_ok('Run::Utax' => ['-u', 'data/usearch8_non_exec'], 'unexecutable utax via short command line argument given');
 dies_ok { $utaxrun->_parse_and_check_utax() } 'Program dies, if a non executable usearch is used';
 
 done_testing();

@@ -8,12 +8,12 @@ WriteMakefile(
     PREREQ_PM         => {
 	'Test::Script' => 1.10,  # this script is required to test the wrapper script
 	'File::Which'  => 0,     # to determine the location of usearch8
-	'Test::Exception' => 0   # needed to test for die statements
+	'Test::Exception' => 0,  # needed to test for die statements
+	'Getopt::Long' => 0,
     }, # e.g., Module::Name => 1.1
     EXE_FILES         => [
 	"bin/run_utax.pl",
 	"bin/usearch8",          # dummy usearch8 file to allow argument parsing
-	"bin/usearch8_non_exec", # dummy usearch8 but not executable allow argument parsing
     ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Run/Utax.pm', # retrieve abstract from module
