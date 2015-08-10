@@ -36,7 +36,7 @@ pod2usage(-exitval => 0, -verbose => 2) if $man;
 
 # if we do not need to provide help we can call the main function of
 # the module providing the given arguments
-Run::Utax::run(@ARGV);
+my $utaxrun= Run::Utax->new(@ARGV);
 
 __END__
 

@@ -8,6 +8,33 @@ our @ISA = qw();
 
 our $VERSION = '0.1';
 
+=head2 new()
+
+This subroutine creates a new object instance of Run::Utax
+
+=cut
+
+sub new
+{
+    my $class = shift @_;
+
+    $class = ref($class) || $class;
+
+    my $self = {};
+
+    # are there more arguments given? if yes store them in orig_argv
+    if (@_) {
+	$self->{_orig_argv} = \@_;
+    } else {
+    # if not, keep the array empty
+	$self->{_orig_argv} = [];
+    }
+
+    bless $self, $class;
+
+    return $self;
+}
+
 sub run
 {
 }
