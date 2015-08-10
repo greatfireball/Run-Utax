@@ -7,6 +7,7 @@ WriteMakefile(
     VERSION_FROM      => 'lib/Run/Utax.pm', # finds $VERSION
     PREREQ_PM         => {
 	'Test::Script' => 1.10,  # this script is required to test the wrapper script
+	'File::Which'  => 0,     # to determine the location of usearch8
     }, # e.g., Module::Name => 1.1
     EXE_FILES         => [
 	"bin/run_utax.pl",
