@@ -21,3 +21,4 @@ t/05_script_runs_with_unallowed_arguments.t
 
 t/30_Run-Utax_loading.t
 t/31_Run_Utax_run.t
+t/32_Run-Utax-check-parameters.t
