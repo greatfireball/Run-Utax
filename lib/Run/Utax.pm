@@ -59,6 +59,12 @@ sub usearchpath
     return $self->{_utaxpath};
 }
 
+=head2 run()
+
+Runs the usearch command according to the parameter settings.
+
+=cut
+
 sub run
 {
 
