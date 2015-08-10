@@ -8,6 +8,7 @@ WriteMakefile(
     PREREQ_PM         => {
 	'Test::Script' => 1.10,  # this script is required to test the wrapper script
 	'File::Which'  => 0,     # to determine the location of usearch8
+	'Test::Exception' => 0   # needed to test for die statements
     }, # e.g., Module::Name => 1.1
     EXE_FILES         => [
 	"bin/run_utax.pl",

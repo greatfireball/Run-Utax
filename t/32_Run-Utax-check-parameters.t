@@ -2,6 +2,8 @@ use strict;
 use warnings;
 
 use Test::More;
+use Test::Exception;
+
 BEGIN { use_ok('Run::Utax') };
 
 can_ok("Run::Utax", qw(_parse_and_check_utax));
@@ -17,11 +19,15 @@ can_ok("Run::Utax", qw(usearchpath));
 #
 #
 
+# test if we die, if the utax_file could not be found
+my $utaxrun = new_ok('Run::Utax' => [], 'Empty argument list');
+dies_ok { $utaxrun->_parse_and_check_utax() } 'Program dies, if no usearch is available';
+
 # first case I want to check if a utax program is available
 # first condition: utax is avaiable using path
 $ENV{PATH} = $ENV{PATH}.":blib/script/";
 
-my $utaxrun = new_ok('Run::Utax' => [], 'Empty argument list');
+$utaxrun = new_ok('Run::Utax' => [], 'Empty argument list');
 $utaxrun->_parse_and_check_utax();
 
 is($utaxrun->usearchpath, "blib/script/usearch8", 'usearch8 was found using the PATH evironmental variable');
