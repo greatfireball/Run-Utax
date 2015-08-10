@@ -11,6 +11,7 @@ bin/run_utax.pl
 
 # usearch dummy files
 bin/usearch8
+bin/usearch8_non_exec
 
 # test scripts
 t/01_script_compiles.t
