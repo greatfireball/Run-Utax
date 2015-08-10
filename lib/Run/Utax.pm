@@ -92,9 +92,8 @@ sub _parse_and_check_utax
     # check if we have a usearch program available in the PATH
     my $utax_path = which('usearch8');
 
-    # if the search using the PATH variable wasn't successful we need
-    # to search for USEARCHPROGRAM
-    if (! defined $utax_path && exists $ENV{USEARCHPROGRAM})
+    # if a environmental variable USEARCHPROGRAM is given, than use that
+    if (exists $ENV{USEARCHPROGRAM})
     {
 	$utax_path = $ENV{USEARCHPROGRAM};
     }
