@@ -310,13 +310,15 @@ sub _parse_arguments
     my $database  = "";   # default empty, as it is required
     my $taxonomy  = "";   # no default, as it is required
     my $infile    = "";   # no default, as it is required
+    my $overwrite = 0;      # default no overwriting
 
     my $ret = GetOptionsFromArray(
 	$self->{_orig_argv},
 	(
-	 'database|d=s'     => \$database,
-	 'taxonomy|t=s'     => \$taxonomy,
-	 'infile|input|i=s' => \$infile,
+	 'database|d=s'      => \$database,
+	 'taxonomy|t=s'      => \$taxonomy,
+	 'infile|input|i=s'  => \$infile,
+	 'force|overwrite|f' => \$overwrite,
 	));
 
     # check if required parameters are set
@@ -336,6 +338,7 @@ sub _parse_arguments
     }
 
     # set the values using the setter
+    $self->overwrite($overwrite);    # first because it might be required for outfile
     $self->database($database);
     $self->taxonomy($taxonomy);
     $self->infile($infile);
