@@ -63,24 +63,30 @@ dies_ok { $utaxrun->_parse_and_check_utax() } 'Program dies, if a non executable
 can_ok("Run::Utax", qw(_parse_arguments));
 
 #
-# Database & Taxonomy
+# Database & Taxonomy & Infile
 #
 my $expected_db =  'data/example.utax.udb';
 my $expected_tax = 'data/example.utax.tax';
+my $expected_in  = 'data/example.fa';
+
 $utaxrun = new_ok('Run::Utax' => [
 	 '--database', $expected_db,
 	 '--taxonomy', $expected_tax,
-	 ], 'Setting the database/taxonomy using the long version');
+	 '--infile',   $expected_in,
+	 ], 'Setting the database/taxonomy/infile using the long version');
 lives_ok { $utaxrun->_parse_arguments() } 'Program survives setting of the taxonomy using long form';
 is($utaxrun->database, $expected_db, 'Setting database using long command works');
 is($utaxrun->taxonomy, $expected_tax, 'Setting taxonomy using long command works');
+is($utaxrun->infile,   $expected_in,  'Setting infile using long command works');
 
 $utaxrun = new_ok('Run::Utax' => [
 	 '-d', $expected_db,
 	 '-t', $expected_tax,
+	 '-i', $expected_in,
 	 ], 'Setting the database/taxonomy using the short version');
 lives_ok { $utaxrun->_parse_arguments() } 'Program survives setting of the taxonomy using short form';
 is($utaxrun->database, $expected_db, 'Setting database using short command works');
 is($utaxrun->taxonomy, $expected_tax, 'Setting taxonomy using short command works');
+is($utaxrun->infile,   $expected_in,  'Setting infile using short command works');
 
 done_testing();
