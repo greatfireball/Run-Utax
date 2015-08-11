@@ -276,7 +276,7 @@ sub _parse_and_check_utax
 
     # finally we try to parse the command line options
     GetOptionsFromArray($self->{_orig_argv},
-			'u|utax=s' => \$utax_path
+			'utax|u=s' => \$utax_path
 	);
 
     # did we succeed in finding a usearch file?
