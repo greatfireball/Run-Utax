@@ -21,6 +21,7 @@ data/example.fa
 data/example.utax.tax
 data/example.utax.udb
 data/out.expected
+data/out.existing
 
 # test scripts
 t/01_script_compiles.t

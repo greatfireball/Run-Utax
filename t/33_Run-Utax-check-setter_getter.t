@@ -102,4 +102,29 @@ is($utaxrun->overwrite(), 0, 'Setting overwrite to 0 seems to work');
 # setting of a not allowed value should die the program
 dies_ok { $utaxrun->overwrite(2) } 'Program dies, if a not allowed value is used';
 
+#
+# recreate object instance
+#
+$utaxrun = new_ok('Run::Utax' => [], 'Empty command line given');
+
+#
+# outfile
+#
+
+$expected_path = 'data/out.nonexisting';
+# setting should work without dying
+lives_ok { $utaxrun->outfile($expected_path) } 'Program should not die with a new outfile';
+# afterwards, the expected path should be retured
+is($utaxrun->outfile(), $expected_path, 'Setting outfile seems to work');
+
+$expected_path = 'data/out.existing';
+# setting of an existing file should die the program
+dies_ok { $utaxrun->outfile($expected_path) } 'Program dies, if an existing outfile is used';
+
+# try to use overwrite
+$utaxrun->overwrite(1);
+# setting of an existing file should now keep the program running
+lives_ok { $utaxrun->outfile($expected_path) } 'Program survives, if an existing outfile is used but overwrite is set';
+
+
 done_testing();
