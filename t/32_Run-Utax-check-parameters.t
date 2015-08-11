@@ -62,4 +62,15 @@ dies_ok { $utaxrun->_parse_and_check_utax() } 'Program dies, if a non executable
 
 can_ok("Run::Utax", qw(_parse_arguments));
 
+my $expected = 'data/example.utax.udb';
+$utaxrun = new_ok('Run::Utax' => ['--database', $expected], 'Setting the database using the long version');
+lives_ok { $utaxrun->_parse_arguments() } 'Program survives setting of the database using long form';
+is($utaxrun->database, $expected, 'Setting database using long command works');
+
+$utaxrun = new_ok('Run::Utax' => ['-d', $expected], 'Setting the database using the short version');
+lives_ok { $utaxrun->_parse_arguments() } 'Program survives setting of the database using short form';
+is($utaxrun->database, $expected, 'Setting database using short command works');
+
+
+
 done_testing();
