@@ -17,7 +17,7 @@ can_ok("Run::Utax", qw(_parse_and_check_utax));
 #
 
 # test if we die, if the utax_file could not be found
-my $utaxrun = new_ok('Run::Utax' => [], 'Empty argument list');
+my $utaxrun = new_ok('Run::Utax' => ['--utax', ""], 'Empty utax field list');
 dies_ok { $utaxrun->_parse_and_check_utax() } 'Program dies, if no usearch is available';
 
 # first case I want to check if a utax program is available
