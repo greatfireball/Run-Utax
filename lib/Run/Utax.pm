@@ -241,6 +241,18 @@ sub run
 
     $self->_parse_and_check_utax();
     $self->_parse_arguments();
+
+    # construct the run command for usearch
+    $self->{cmd} = [
+	$self->usearchpath(),
+	'-utax', $self->infile(),
+	'-db',   $self->database(),
+	'-tt',   $self->taxonomy(),
+	'-utaxout', $self->outfile,
+	'-utax_rawscore',
+	];
+
+    printf STDERR "Command to run: '%s'\n", join(" ", @{$self->{cmd}});
 }
 
 =head1 Private subroutines
@@ -280,7 +292,7 @@ sub _parse_and_check_utax
 	);
 
     # did we succeed in finding a usearch file?
-    unless (defined $utax_path)
+    if (($utax_path eq '') || !(defined $utax_path))
     {
 	die "Unable to find usearch program!\n";
     }
