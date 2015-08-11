@@ -33,4 +33,20 @@ dies_ok { $utaxrun->usearchpath('data/usearch8_non_exec') } 'Program dies, if a 
 # setting of a non existing program should die the program
 dies_ok { $utaxrun->usearchpath('data/usearch8_non_exec2') } 'Program dies, if a non existing usearch is used';
 
+#
+# recreate object instance
+#
+$utaxrun = new_ok('Run::Utax' => [], 'Empty command line given');
+
+#
+# database
+#
+$expected_path = 'data/example.utax.udb';
+# setting should work without dying
+lives_ok { $utaxrun->database($expected_path) } 'Program should not die with a accessable database file';
+# afterwards, the expected path should be retured
+is($utaxrun->database(), $expected_path, 'Setting database seems to work');
+# setting of a non existing file should die the program
+dies_ok { $utaxrun->database($expected_path."2") } 'Program dies, if a non existing database is used';
+
 done_testing();
