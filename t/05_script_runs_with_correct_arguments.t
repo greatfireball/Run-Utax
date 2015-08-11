@@ -8,10 +8,10 @@ $ENV{PATH} = $ENV{PATH}.":blib/script/";
 
 my $script_args = [
                    'blib/script/run_utax.pl',
-                   '--database', 'all.utax.udb',
-		   '--taxonomy', 'all.utax.tax',
-                   '--input', 'test.fa',
-                   '--output', 'utax.out',
+                   '--database', 'data/example.utax.udb',
+		   '--taxonomy', 'data/example.utax.tax',
+                   '--input', 'data/example.fa',
+                   '--output', 'data/utax.out',
                   ];
 my $options = {
                 exit => 0
@@ -23,10 +23,10 @@ $ENV{USEARCHPROGRAM} = "blib/script/usearch8";
 
 $script_args = [
                    'blib/script/run_utax.pl',
-                   '--database', 'all.utax.udb',
-		   '--taxonomy', 'all.utax.tax',
-                   '--input', 'test.fa',
-                   '--output', 'utax.out'
+                   '--database', 'data/example.utax.udb',
+		   '--taxonomy', 'data/example.utax.tax',
+                   '--input', 'data/example.fa',
+                   '--output', 'data/utax.out',
                   ];
 $options = {
                 exit => 0
@@ -36,11 +36,10 @@ script_runs($script_args, $options, "Test if script runs our test set with fasta
 
 $script_args = [
                    'blib/script/run_utax.pl',
-                   '--database', 'all.utax.udb',
-		   '--taxonomy', 'all.utax.tax',
-                   '--input', 'test.fa',
-                   '--output', 'utax.out',
-		   '--utax', 'blib/script/usearch8'
+                   '--database', 'data/example.utax.udb',
+		   '--taxonomy', 'data/example.utax.tax',
+                   '--input', 'data/example.fa',
+                   '--output', 'data/utax.out',
                   ];
 $options = {
                 exit => 0
