@@ -100,6 +100,37 @@ sub database
     return $self->{_database};
 }
 
+=head2 taxonomy()
+
+This setter/getter sets or returns the path for the taxonomy file.
+The path must indicate the location of a existing and accessable file
+to be valid.
+
+=cut
+
+sub taxonomy
+{
+    my $self = shift;
+
+    # is a parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $taxonomy_path = shift;
+
+	# check if the file exists and can be accessed
+	unless (-e $taxonomy_path)
+	{
+	    die "Unable to access the taxonomy file on location '$taxonomy_path'\n";
+	}
+
+	$self->{_taxonomy} = $taxonomy_path;
+    }
+
+    # finally return the value
+    return $self->{_taxonomy};
+}
+
 =head2 run()
 
 Runs the usearch command according to the parameter settings.
