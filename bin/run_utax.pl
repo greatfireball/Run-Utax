@@ -58,6 +58,36 @@ run_utax.pl - Perl wrapper to run utax for a given dataset
 
 =head1 DESCRIPTION
 
+The script run_utax is a wrapper to run utax with a given
+database/taxonomy on a given dataset.
+
+=head1 PARAMETERS
+
+=head2 --database (required)
+
+Specifies the utax database which will be used for barcoding.
+
+=head2 --taxonomy (required)
+
+Specifies the utax taxonomy which will be used for barcoding.
+
+=head2 --infile (required)
+
+Specifies the sequences which need to be barcoded.
+
+=head2 --outfile
+
+The utax results will be written to that file. If no file name is
+provided, the result will be written to STDOUT.
+
+=head2 --utax
+
+This argument indicates the location of the usearch executable
+file. This is not required. If not provided via command line option,
+the script search for an evirnomental variable USEARCHPROGRAM or as
+fallback inside the PATH directories. If no valid program (must be
+executable) is found. The script will die.
+
 =head1 AUTHOR
 
 Frank Förster, E<lt>foersterfrank@gmx.deE<gt>
