@@ -7,9 +7,13 @@ WriteMakefile(
     VERSION_FROM      => 'lib/Run/Utax.pm', # finds $VERSION
     PREREQ_PM         => {
 	'Test::Script' => 1.10,  # this script is required to test the wrapper script
-    }, # e.g., Module::Name => 1.1
+	'File::Which'  => 0,     # to determine the location of usearch8
+	'Test::Exception' => 0,  # needed to test for die statements
+	'Getopt::Long' => 0,
+    }, 
     EXE_FILES         => [
-	"bin/run_utax.pl"
+	"bin/run_utax.pl",
+	"bin/usearch8",          # dummy usearch8 file to allow argument parsing
     ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Run/Utax.pm', # retrieve abstract from module

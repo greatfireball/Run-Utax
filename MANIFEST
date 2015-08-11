@@ -9,12 +9,28 @@ lib/Run/Utax.pm
 # script files
 bin/run_utax.pl
 
+# usearch dummy files
+bin/usearch8
+
+# a non executable usearch8 file located in data folder (otherwise it
+# will be made executable) 
+data/usearch8_non_exec
+
+# test data set
+data/example.fa
+data/example.utax.tax
+data/example.utax.udb
+data/out.expected
+data/out.existing
+
 # test scripts
 t/01_script_compiles.t
 t/02_script_runs_without_parameters.t
 t/03_script_runs_with_help_requested.t
 t/04_script_runs_with_man_requested.t
-t/05_script_runs_with_unallowed_arguments.t
+t/05_script_runs_with_correct_arguments.t
 
 t/30_Run-Utax_loading.t
-t/31_Run_Utax_run.t
+t/31_Run-Utax_run.t
+t/32_Run-Utax-check-parameters.t
+t/33_Run-Utax-check-setter_getter.t
