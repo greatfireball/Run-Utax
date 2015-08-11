@@ -48,11 +48,19 @@ sub usearchpath
 {
     my $self = shift;
 
+    # is a parameter given?
     if (@_)
     {
 	# still an argument available so set the path
-	my $param = shift;
-	$self->{_utaxpath} = $param;
+	my $utax_path = shift;
+
+	# before using the command, we want to check if it is executable
+	unless (-x $utax_path)
+	{
+	    die "Unable to execute the usearch file on location '$utax_path'\n";
+	}
+
+	$self->{_utaxpath} = $utax_path;
     }
 
     # finally return the value
@@ -116,13 +124,7 @@ sub _parse_and_check_utax
 	die "Unable to find usearch program!\n";
     }
 
-    # before using the command, we want to check if it is executable
-    unless (-x $utax_path)
-    {
-	die "Unable to execute the usearch file on location '$utax_path'\n";
-    }
-
-    # here we have the program
+    # now set the progam path
     $self->usearchpath($utax_path);
 
     return $self;
