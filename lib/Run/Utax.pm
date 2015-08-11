@@ -40,7 +40,9 @@ sub new
 
 =head2 usearchpath
 
-This setter/getter sets or returns the path for the usearch program
+This setter/getter sets or returns the path for the usearch
+program. The path must indicate the location of a executable file to
+be valid.
 
 =cut
 
