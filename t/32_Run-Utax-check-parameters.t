@@ -8,9 +8,6 @@ BEGIN { use_ok('Run::Utax') };
 
 can_ok("Run::Utax", qw(_parse_and_check_utax));
 
-# Here we test, if all required setter/getter are avaiable
-can_ok("Run::Utax", qw(usearchpath));
-
 # check if the parameters are scanned correctly
 
 # 
