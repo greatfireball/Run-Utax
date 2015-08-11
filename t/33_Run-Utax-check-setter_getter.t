@@ -11,11 +11,10 @@ can_ok("Run::Utax", qw(database));
 can_ok("Run::Utax", qw(taxonomy));
 can_ok("Run::Utax", qw(infile));
 can_ok("Run::Utax", qw(overwrite));
+can_ok("Run::Utax", qw(outfile));
 
 TODO: {
    local $TODO = "Setter/Getter need to get implemented";
-
-   can_ok("Run::Utax", qw(outfile));
 }
 
 done_testing();
