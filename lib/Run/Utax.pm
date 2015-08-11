@@ -217,7 +217,7 @@ sub outfile
 	my $outfile_path = shift;
 
 	# check if the file exists and can be accessed
-	if (-e $outfile_path && !($self->overwrite))
+	if ($outfile_path ne "-" && -e $outfile_path && !($self->overwrite))
 	{
 	    die "Overwriting existing files is not allowed. Use option --force|--overwrite to enable that\n";
 	}
@@ -310,7 +310,8 @@ sub _parse_arguments
     my $database  = "";   # default empty, as it is required
     my $taxonomy  = "";   # no default, as it is required
     my $infile    = "";   # no default, as it is required
-    my $overwrite = 0;      # default no overwriting
+    my $outfile   = "-";  # default is printing to STDOUT
+    my $overwrite = 0;    # default no overwriting
 
     my $ret = GetOptionsFromArray(
 	$self->{_orig_argv},
@@ -318,6 +319,7 @@ sub _parse_arguments
 	 'database|d=s'      => \$database,
 	 'taxonomy|t=s'      => \$taxonomy,
 	 'infile|input|i=s'  => \$infile,
+	 'outfile|o=s'       => \$outfile,
 	 'force|overwrite|f' => \$overwrite,
 	));
 
@@ -342,6 +344,7 @@ sub _parse_arguments
     $self->database($database);
     $self->taxonomy($taxonomy);
     $self->infile($infile);
+    $self->outfile($outfile);
 }
 
 1;
