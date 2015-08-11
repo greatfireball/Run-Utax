@@ -292,7 +292,7 @@ sub _parse_and_check_utax
 	);
 
     # did we succeed in finding a usearch file?
-    unless (defined $utax_path)
+    if (($utax_path eq '') || !(defined $utax_path))
     {
 	die "Unable to find usearch program!\n";
     }
