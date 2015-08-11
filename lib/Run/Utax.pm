@@ -69,6 +69,37 @@ sub usearchpath
     return $self->{_utaxpath};
 }
 
+=head2 database()
+
+This setter/getter sets or returns the path for the database file.
+The path must indicate the location of a existing and accessable file
+to be valid.
+
+=cut
+
+sub database
+{
+    my $self = shift;
+
+    # is a parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $database_path = shift;
+
+	# check if the file exists and can be accessed
+	unless (-e $database_path)
+	{
+	    die "Unable to access the database file on location '$database_path'\n";
+	}
+
+	$self->{_database} = $database_path;
+    }
+
+    # finally return the value
+    return $self->{_database};
+}
+
 =head2 run()
 
 Runs the usearch command according to the parameter settings.
