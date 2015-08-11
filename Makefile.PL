@@ -13,7 +13,6 @@ WriteMakefile(
     }, 
     EXE_FILES         => [
 	"bin/run_utax.pl",
-	"bin/usearch8",          # dummy usearch8 file to allow argument parsing
     ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Run/Utax.pm', # retrieve abstract from module
