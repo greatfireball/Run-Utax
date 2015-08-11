@@ -10,7 +10,7 @@ WriteMakefile(
 	'File::Which'  => 0,     # to determine the location of usearch8
 	'Test::Exception' => 0,  # needed to test for die statements
 	'Getopt::Long' => 0,
-    }, # e.g., Module::Name => 1.1
+    }, 
     EXE_FILES         => [
 	"bin/run_utax.pl",
 	"bin/usearch8",          # dummy usearch8 file to allow argument parsing
