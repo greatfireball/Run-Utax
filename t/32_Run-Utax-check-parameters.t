@@ -131,4 +131,25 @@ $utaxrun = new_ok('Run::Utax' => [
 	 ], 'Setting the database/taxonomy/infile/outfile using the long version');
 dies_ok { $utaxrun->_parse_arguments() } 'Program dies when setting a existing outfile without overwrite flag set';
 
+#
+# Leave one out test of the required parameter
+#
+$utaxrun = new_ok('Run::Utax' => [
+	 '--taxonomy', $expected_tax,
+	 '--infile',   $expected_in,
+	 ], 'Leaving out database setting');
+dies_ok { $utaxrun->_parse_arguments() } 'Program dies without a propper set database';
+
+$utaxrun = new_ok('Run::Utax' => [
+	 '--database', $expected_db,
+	 '--infile',   $expected_in,
+	 ], 'Leaving out taxonomy setting');
+dies_ok { $utaxrun->_parse_arguments() } 'Program dies without a propper set taxonomy file';
+
+$utaxrun = new_ok('Run::Utax' => [
+	 '--database', $expected_db,
+	 '--taxonomy', $expected_tax,
+	 ], 'Leaving out infile setting');
+dies_ok { $utaxrun->_parse_arguments() } 'Program dies without a propper set input file';
+
 done_testing();
