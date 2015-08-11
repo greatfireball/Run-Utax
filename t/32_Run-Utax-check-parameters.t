@@ -78,6 +78,7 @@ lives_ok { $utaxrun->_parse_arguments() } 'Program survives setting of the taxon
 is($utaxrun->database, $expected_db, 'Setting database using long command works');
 is($utaxrun->taxonomy, $expected_tax, 'Setting taxonomy using long command works');
 is($utaxrun->infile,   $expected_in,  'Setting infile using long command works');
+is($utaxrun->overwrite, 0,  'Overwrite flag should be 0 by default');
 
 $utaxrun = new_ok('Run::Utax' => [
 	 '-d', $expected_db,
@@ -88,5 +89,6 @@ lives_ok { $utaxrun->_parse_arguments() } 'Program survives setting of the taxon
 is($utaxrun->database, $expected_db, 'Setting database using short command works');
 is($utaxrun->taxonomy, $expected_tax, 'Setting taxonomy using short command works');
 is($utaxrun->infile,   $expected_in,  'Setting infile using short command works');
+is($utaxrun->overwrite, 0,  'Overwrite flag should be 0 by default');
 
 done_testing();
