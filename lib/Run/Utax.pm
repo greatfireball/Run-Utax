@@ -304,6 +304,25 @@ sub _parse_arguments
 
     my $self = shift;
 
+    # the command line arguments are stored in _argv_orig
+
+    # first we want to get the parameter settings
+    my $database  = "";   # default empty, as it is required
+
+    my $ret = GetOptionsFromArray(
+	$self->{_orig_argv},
+	(
+	 'database|d=s' => \$database,
+	));
+
+    # check if required parameters are set
+    if ($database eq "")
+    {
+	die "No database given!";
+    }
+
+    # set the values using the setter
+    $self->database($database);
 }
 
 1;
