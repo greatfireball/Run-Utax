@@ -81,4 +81,25 @@ is($utaxrun->infile(), $expected_path, 'Setting infile seems to work');
 # setting of a non existing file should die the program
 dies_ok { $utaxrun->infile($expected_path."2") } 'Program dies, if a non existing infile is used';
 
+#
+# recreate object instance
+#
+$utaxrun = new_ok('Run::Utax' => [], 'Empty command line given');
+
+#
+# overwrite
+#
+
+# setting should work without dying
+lives_ok { $utaxrun->overwrite(1) } 'Program should not die with a 1 as parameter for overwrite setter';
+# afterwards, the expected 1 should be retured
+is($utaxrun->overwrite(), 1, 'Setting overwrite to 1 seems to work');
+# setting should work without dying
+lives_ok { $utaxrun->overwrite(0) } 'Program should not die with a 0 as parameter for overwrite setter';
+# afterwards, the expected 0 should be retured
+is($utaxrun->overwrite(), 0, 'Setting overwrite to 0 seems to work');
+
+# setting of a not allowed value should die the program
+dies_ok { $utaxrun->overwrite(2) } 'Program dies, if a not allowed value is used';
+
 done_testing();
