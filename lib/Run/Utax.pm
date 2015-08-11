@@ -196,6 +196,38 @@ sub overwrite
     return $self->{_overwrite};
 }
 
+=head2 outfile()
+
+This setter/getter sets or returns the path for the outfile
+file. Moreover, it checks, if the files exists and in this case it
+dies, if the overwrite flag is not set. The path must indicate the
+location of a new or an existing and accessable file (if overwrite is
+set) to be valid.
+
+=cut
+
+sub outfile
+{
+    my $self = shift;
+
+    # is a parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $outfile_path = shift;
+
+	# check if the file exists and can be accessed
+	if (-e $outfile_path && !($self->overwrite))
+	{
+	    die "Overwriting existing files is not allowed. Use option --force|--overwrite to enable that\n";
+	}
+
+	$self->{_outfile} = $outfile_path;
+    }
+
+    # finally return the value
+    return $self->{_outfile};
+}
 
 =head2 run()
 
