@@ -22,7 +22,7 @@ my $utaxrun = new_ok('Run::Utax' => [], 'Empty command line given');
 #
 # usearchpath
 #
-my $expected_path = 'blib/script/usearch8';
+my $expected_path = 'data/usearch8';
 
 # setting should work without dying
 lives_ok { $utaxrun->usearchpath($expected_path) } 'Program should not die with a executable usearch path';

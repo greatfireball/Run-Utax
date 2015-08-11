@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use Test::Script 1.10;
 
-$ENV{PATH} = $ENV{PATH}.":blib/script/";
+$ENV{PATH} = "data/:".$ENV{PATH};
 
 my $script_args = [
                    'blib/script/run_utax.pl',
@@ -19,7 +19,7 @@ my $options = {
 
 script_runs($script_args, $options, "Test if script runs our test set with fasta file and utax from PATH");
 
-$ENV{USEARCHPROGRAM} = "blib/script/usearch8";
+$ENV{USEARCHPROGRAM} = "data/usearch8";
 
 $script_args = [
                    'blib/script/run_utax.pl',
@@ -40,6 +40,7 @@ $script_args = [
 		   '--taxonomy', 'data/example.utax.tax',
                    '--input', 'data/example.fa',
                    '--output', 'data/utax.out',
+		   '--utax',  'data/usearch8'
                   ];
 $options = {
                 exit => 0
