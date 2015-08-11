@@ -131,6 +131,37 @@ sub taxonomy
     return $self->{_taxonomy};
 }
 
+=head2 infile()
+
+This setter/getter sets or returns the path for the infile file.
+The path must indicate the location of a existing and accessable file
+to be valid.
+
+=cut
+
+sub infile
+{
+    my $self = shift;
+
+    # is a parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $infile_path = shift;
+
+	# check if the file exists and can be accessed
+	unless (-e $infile_path)
+	{
+	    die "Unable to access the infile on location '$infile_path'\n";
+	}
+
+	$self->{_infile} = $infile_path;
+    }
+
+    # finally return the value
+    return $self->{_infile};
+}
+
 =head2 run()
 
 Runs the usearch command according to the parameter settings.
