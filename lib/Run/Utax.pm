@@ -162,6 +162,41 @@ sub infile
     return $self->{_infile};
 }
 
+=head2 overwrite()
+
+This setter/getter sets or returns the status of overwrite flag.
+Allowed values are 0 for disabled and 1 for enabled overwriting.
+
+
+=cut
+
+sub overwrite
+{
+    my $self = shift;
+
+    # is a parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $overwrite = shift;
+
+	# convert it into a number
+	$overwrite = $overwrite+0;
+
+	# check if the value is allowed
+	unless ($overwrite == 0 || $overwrite == 1)
+	{
+	    die "Allowed values for overwrite setter are 0 for disabling and 1 for enabling overwriting\n";
+	}
+
+	$self->{_overwrite} = $overwrite;
+    }
+
+    # finally return the value
+    return $self->{_overwrite};
+}
+
+
 =head2 run()
 
 Runs the usearch command according to the parameter settings.
