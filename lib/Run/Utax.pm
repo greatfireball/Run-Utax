@@ -308,11 +308,13 @@ sub _parse_arguments
 
     # first we want to get the parameter settings
     my $database  = "";   # default empty, as it is required
+    my $taxonomy  = "";   # no default, as it is required
 
     my $ret = GetOptionsFromArray(
 	$self->{_orig_argv},
 	(
 	 'database|d=s' => \$database,
+	 'taxonomy|t=s' => \$taxonomy,
 	));
 
     # check if required parameters are set
@@ -321,8 +323,14 @@ sub _parse_arguments
 	die "No database given!";
     }
 
+    if ($taxonomy eq "")
+    {
+	die "No taxonomy file given!";
+    }
+
     # set the values using the setter
     $self->database($database);
+    $self->taxonomy($taxonomy);
 }
 
 1;
