@@ -88,6 +88,12 @@ the script search for an evirnomental variable USEARCHPROGRAM or as
 fallback inside the PATH directories. If no valid program (must be
 executable) is found. The script will die.
 
+=head2 --force|--overwrite|-f
+
+This argument indicates that outputfiles should be overwritten if they
+are already exist. If this option is not speciefied, the script will
+die due to existing output files.
+
 =head1 AUTHOR
 
 Frank Förster, E<lt>foersterfrank@gmx.deE<gt>
@@ -117,4 +123,3 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 =cut
-
