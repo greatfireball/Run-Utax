@@ -49,4 +49,20 @@ is($utaxrun->database(), $expected_path, 'Setting database seems to work');
 # setting of a non existing file should die the program
 dies_ok { $utaxrun->database($expected_path."2") } 'Program dies, if a non existing database is used';
 
+#
+# recreate object instance
+#
+$utaxrun = new_ok('Run::Utax' => [], 'Empty command line given');
+
+#
+# taxonomy
+#
+$expected_path = 'data/example.utax.tax';
+# setting should work without dying
+lives_ok { $utaxrun->taxonomy($expected_path) } 'Program should not die with a accessable taxonomy file';
+# afterwards, the expected path should be retured
+is($utaxrun->taxonomy(), $expected_path, 'Setting taxonomy seems to work');
+# setting of a non existing file should die the program
+dies_ok { $utaxrun->taxonomy($expected_path."2") } 'Program dies, if a non existing taxonomy file is used';
+
 done_testing();
