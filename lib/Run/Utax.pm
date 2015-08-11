@@ -77,11 +77,10 @@ Runs the usearch command according to the parameter settings.
 
 sub run
 {
-
     my $self = shift @_;
 
     $self->_parse_and_check_utax();
-
+    $self->_parse_arguments();
 }
 
 =head1 Private subroutines
@@ -130,6 +129,21 @@ sub _parse_and_check_utax
     $self->usearchpath($utax_path);
 
     return $self;
+}
+
+=head2 _parse_arguments()
+
+This subroutine checks is the other arguments for validity.
+
+=back
+
+=cut
+
+sub _parse_arguments
+{
+
+    my $self = shift;
+
 }
 
 1;
