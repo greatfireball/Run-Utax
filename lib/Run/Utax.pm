@@ -320,7 +320,7 @@ sub run
     my $tsvFH = $self->{_FH_tsv};
     if ($tsvFH)
     {
-	print $tsvFH "#", join("\t", qw(kingdom phylum class order family genus species)), "\n";
+	print $tsvFH "#", join("\t", qw(ID kingdom phylum class order family genus species)), "\n";
     }
 
     # get the output file handle
@@ -357,7 +357,7 @@ sub run
 	# print sciname and score to the tsv
 	if ($tsvFH)
 	{
-	    print $tsvFH join("\t", map {sprintf "%s (%s)", $_->{sciname}, $_->{score}} (@lineage)), "\n";
+	    print $tsvFH join("\t", ($id, map {sprintf "%s (%s)", $_->{sciname}, $_->{score}} (@lineage))), "\n";
 	}
 
 	# store the lineage information to the id if not already present
