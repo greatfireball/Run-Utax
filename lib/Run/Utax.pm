@@ -315,9 +315,17 @@ sub _open4writing
 
     if ($self->{$file})
     {
-	my $fh;
-	open($fh, ">", $self->{$file}) || die "Unable to open the file '$self->{$file}' for writing: $!\n";
-	$self->{$filehandle} = $fh;
+	# sometimes we want to have the output on stdout, here we can capture that
+	if ($self->{$file} ne "-")
+	{
+	    # create a new file
+	    my $fh;
+	    open($fh, ">", $self->{$file}) || die "Unable to open the file '$self->{$file}' for writing: $!\n";
+	    $self->{$filehandle} = $fh;
+	} else {
+	    # we want to write to STDOUT
+	    $self->{$filehandle} = \*STDOUT;
+	}
     }
 
     return $self;
