@@ -10,6 +10,8 @@ WriteMakefile(
 	'File::Which'  => 0,     # to determine the location of usearch8
 	'Test::Exception' => 0,  # needed to test for die statements
 	'Getopt::Long' => 0,
+	'File::Temp' => 0,       # creating temporary files
+	'Capture::Tiny' => 0,   # executing a command an capturing stdout/stderr/success
     }, 
     EXE_FILES         => [
 	"bin/run_utax.pl",

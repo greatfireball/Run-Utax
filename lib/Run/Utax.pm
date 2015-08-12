@@ -9,7 +9,11 @@ our @ISA = qw();
 our $VERSION = '0.1';
 
 use File::Which qw(which);
+use File::Temp qw(tempfile);
+
 use Getopt::Long qw(GetOptionsFromArray :config pass_through);
+
+use Capture::Tiny ':all';
 
 =head2 new()
 
@@ -242,17 +246,28 @@ sub run
     $self->_parse_and_check_utax();
     $self->_parse_arguments();
 
+    # I need to create a temporary file for the utax output. The
+    # requested output file is required later
+    my ($fh, $filename) = tempfile();
+
     # construct the run command for usearch
     $self->{cmd} = [
 	$self->usearchpath(),
 	'-utax', $self->infile(),
 	'-db',   $self->database(),
 	'-tt',   $self->taxonomy(),
-	'-utaxout', $self->outfile,
+	'-utaxout', $filename,
 	'-utax_rawscore',
 	];
 
     printf STDERR "Command to run: '%s'\n", join(" ", @{$self->{cmd}});
+
+    # run the external program
+    my ($stdout, $stderr, $exit) = capture { system( @{$self->{cmd}} ) };
+
+    # print status messages
+    printf STDERR "Exit code for command was %d\n==== Captured STDOUT ====\n%s\n==== Captured STDERR ====\n%s", $exit, $stdout, $stderr;
+
 }
 
 =head1 Private subroutines
