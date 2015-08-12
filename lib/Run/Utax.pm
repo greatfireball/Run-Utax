@@ -44,6 +44,17 @@ sub new
     return $self;
 }
 
+=head2 DESTROY
+
+=cut
+
+sub DESTROY
+{
+    my $self = shift;
+
+    $self->_closeAllHandles();
+}
+
 =head2 usearchpath
 
 This setter/getter sets or returns the path for the usearch
@@ -391,6 +402,11 @@ sub run
 
 	# done
     }
+
+    # close all files
+    $self->_closefile('tsv');
+    $self->_closefile('fasta');
+    $self->_closefile('outfile');
 
 }
 
