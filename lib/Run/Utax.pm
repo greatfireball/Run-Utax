@@ -323,6 +323,34 @@ sub _open4writing
     return $self;
 }
 
+=head2 _closefile
+
+This methods closes a specified file (given by filename) and set the corresponding filehandle to undef.
+
+=cut
+
+sub _closefile
+{
+    my $self = shift;
+
+    # one parameter should be given
+    my $file = shift;
+
+    # the private attribute owns a leading underscore
+    $file = "_".$file;
+
+    # the attribute for the file handle has a leading _FH
+    my $filehandle = "_FH".$file;
+
+    if (defined $self->{$filehandle})
+    {
+	close($self->{$filehandle}) || die "Unable to close the file '$self->{$file}': $!\n";
+	$self->{$filehandle} = undef;
+    }
+
+    return $self;
+}
+
 =head2 _parse_and_check_utax()
 
 This subroutine checks is the utax program is available. Therefore the user can provide the program using three different ways:
