@@ -351,6 +351,34 @@ sub _closefile
     return $self;
 }
 
+
+=head2 _closeAllHandles
+
+This methods closes all file handles from the file handle attributed.
+Should be used as part of the destructor.
+
+=cut
+
+sub _closeAllHandles
+{
+    my $self = shift;
+
+    # find all attributes which represents filehandles
+    my @filehandles = grep {$_ =~ /^_FH_/} (keys %{$self});
+
+    # determine the filename attribute from the filehandle attribute and call _closefile
+    foreach my $fh (@filehandles)
+    {
+	# the filename should be stored in a attribute without the leading _FH
+	my $filename = $fh;
+	$filename =~ s/^_FH//;
+
+	$self->_closefile($filename);
+    }
+
+    return $self;
+}
+
 =head2 _parse_and_check_utax()
 
 This subroutine checks is the utax program is available. Therefore the user can provide the program using three different ways:
