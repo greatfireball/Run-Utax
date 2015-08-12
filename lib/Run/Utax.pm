@@ -202,11 +202,11 @@ sub overwrite
 
 =head2 outfile()
 
-This setter/getter sets or returns the path for the outfile
-file. Moreover, it checks, if the files exists and in this case it
-dies, if the overwrite flag is not set. The path must indicate the
-location of a new or an existing and accessable file (if overwrite is
-set) to be valid.
+This setter/getter sets or returns the path for the outfile file. It
+utilizes the private method _check4_outfile to test if the files
+exists and in this case it dies, if the overwrite flag is not set. The
+path must indicate the location of a new or an existing and accessable
+file (if overwrite is set) to be valid.
 
 =cut
 
@@ -214,23 +214,7 @@ sub outfile
 {
     my $self = shift;
 
-    # is a parameter given?
-    if (@_)
-    {
-	# still an argument available so set the path
-	my $outfile_path = shift;
-
-	# check if the file exists and can be accessed
-	if ($outfile_path ne "-" && -e $outfile_path && !($self->overwrite))
-	{
-	    die "Overwriting existing files is not allowed. Use option --force|--overwrite to enable that\n";
-	}
-
-	$self->{_outfile} = $outfile_path;
-    }
-
-    # finally return the value
-    return $self->{_outfile};
+    return $self->_check_4_outfile('outfile', @_);
 }
 
 =head2 run()
@@ -268,9 +252,73 @@ sub run
     # print status messages
     printf STDERR "Exit code for command was %d\n==== Captured STDOUT ====\n%s\n==== Captured STDERR ====\n%s", $exit, $stdout, $stderr;
 
+    # now we need to parse the output:
+    # - if a tsv is requested, the file will be created
+    # - if a fasta is requested, the file will be created
+    # - the raw utax output is copied into the output file which will be created
+
+    # open a tsv file, if requested
+    $self->_open4writing('tsv');
+    $self->_open4writing('fasta');
+    $self->_open4writing('outfile');
+
+    # a handle for the utax output is alread present in $fh
+    # reset the position
+    seek($fh, 0, 0) || die "Unable to reset file position for file '$filename': $!\n";
+
 }
 
 =head1 Private subroutines
+
+=head2 _check_4_outfile
+
+This method is used by fasta/tsv/outfile. It tests if the file exists
+and if in that case overwrite is set.
+
+=head3 parameters
+
+First parameter ist the type of the file. This determines the
+attribute name. Currently supported are
+
+=over 4
+
+=item a) outfile
+
+=item b) fasta
+
+=item c) tsv
+
+=back
+
+=cut
+
+sub _check_4_outfile
+{
+    my $self = shift;
+
+    # next parameter is the type
+    my $type = shift;
+    # the attribute has a leading _
+    $type = "_".$type;
+
+    # is another parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $file_path = shift;
+
+	# check if the file exists and can be accessed
+	if (defined $file_path && $file_path ne "-" && -e $file_path && !($self->overwrite))
+	{
+	    die "Overwriting existing files is not allowed. Use option --force|--overwrite to enable that\n";
+	}
+
+	$self->{$type} = $file_path;
+    }
+
+    # finally return the value
+    return $self->{$type};
+}
 
 =head2 _open4writing
 
