@@ -11,7 +11,8 @@ WriteMakefile(
 	'Test::Exception' => 0,  # needed to test for die statements
 	'Getopt::Long' => 0,
 	'File::Temp' => 0,       # creating temporary files
-	'Capture::Tiny' => 0,   # executing a command an capturing stdout/stderr/success
+	'Capture::Tiny' => 0,    # executing a command an capturing stdout/stderr/success
+	'Bio::SeqIO'    => 0,    # accessing fasta input data
     }, 
     EXE_FILES         => [
 	"bin/run_utax.pl",

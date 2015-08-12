@@ -15,6 +15,8 @@ use Getopt::Long qw(GetOptionsFromArray :config pass_through);
 
 use Capture::Tiny ':all';
 
+use Bio::SeqIO;
+
 =head2 new()
 
 This subroutine creates a new object instance of Run::Utax
@@ -299,6 +301,96 @@ sub run
     # a handle for the utax output is alread present in $fh
     # reset the position
     seek($fh, 0, 0) || die "Unable to reset file position for file '$filename': $!\n";
+
+    # utax returns a different order of sequences, therefore we need to track the ID lineage pairs
+    my %id_lineage = ();
+
+    # if tsv is requested, print a header
+    my $tsvFH = $self->{_FH_tsv};
+    if ($tsvFH)
+    {
+	print $tsvFH "#", join("\t", qw(kingdom phylum class order family genus species)), "\n";
+    }
+
+    # get the output file handle
+    my $outFH = $self->{_FH_outfile};
+
+    # loop through the original utax output
+    while (<$fh>)
+    {
+	# write the raw output to the outputfile
+
+	print $outFH $_;
+
+	chomp($_);
+
+	my @fields = split(/\t/, $_);
+
+	# first field contains the id, second field the lineage, third
+	# field a plus sign
+
+	my $id = $fields[0];
+	my @lineage = split(/,/, $fields[1]);
+
+	# workaround a undocumented utax behavior
+	# sometimes it prints two line for an ID, but then the first line contains
+	# * for lineage and plus sign
+	# skip those lines
+	next if ($fields[1] eq "*" && $fields[2] eq "*");
+
+	@lineage = map {
+	    $_ =~ /([^_]+)_{1,2}(\d+)\(([\d.]+)\)$/;
+	    {sciname => $1, taxid => $2, score => $3}
+	} (@lineage);
+
+	# print sciname and score to the tsv
+	if ($tsvFH)
+	{
+	    print $tsvFH join("\t", map {sprintf "%s (%s)", $_->{sciname}, $_->{score}} (@lineage)), "\n";
+	}
+
+	# store the lineage information to the id if not already present
+	if (exists $id_lineage{$id})
+	{
+	    die "utax returned the identical id ($id) twice...\n";
+	}
+
+	$id_lineage{$id} = $fields[1];
+
+    }
+
+    # last thing to do is writing the fasta file, if requested
+    if (defined $self->{_FH_fasta})
+    {
+
+	# we need to open the input data
+	my $seqin = Bio::SeqIO->new(
+	    -file => $self->{_infile}
+	    );
+
+	# let Bio::SeqIO write our output file if we want it
+	my $seqout = Bio::SeqIO->new(
+	    -format => 'fasta',
+	    -fh => $self->{_FH_fasta}
+	    );
+
+	# loop through the sequences and add the lineage infomation to
+	# the description and write it to the output file
+
+	while (my $inseq = $seqin->next_seq) {
+	    my $lin = "n.d.";
+	    unless (exists $id_lineage{$inseq->id()})
+	    {
+		warn "No lineage information for id: ", $inseq->id(), "\n";
+	    } else {
+		$lin = $id_lineage{$inseq->id()};
+	    }
+		$inseq->desc($inseq->desc." utax: ".$lin);
+		$seqout->write_seq($inseq);
+	}
+
+	# done
+    }
 
 }
 
