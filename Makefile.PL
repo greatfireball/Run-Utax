@@ -18,5 +18,5 @@ WriteMakefile(
     ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Run/Utax.pm', # retrieve abstract from module
-       AUTHOR         => 'Frank Förster <frank@>') : ()),
+       AUTHOR         => 'Frank Förster <foersterfrank@gmx.de>') : ()),
 );
