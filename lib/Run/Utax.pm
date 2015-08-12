@@ -217,6 +217,40 @@ sub outfile
     return $self->_check_4_outfile('outfile', @_);
 }
 
+=head2 fasta()
+
+This setter/getter sets or returns the path for the fasta file. It
+utilizes the private method _check4_outfile to test if the files
+exists and in this case it dies, if the overwrite flag is not set. The
+path must indicate the location of a new or an existing and accessable
+file (if overwrite is set) to be valid.
+
+=cut
+
+sub fasta
+{
+    my $self = shift;
+
+    return $self->_check_4_outfile('fasta', @_);
+}
+
+=head2 tsv()
+
+This setter/getter sets or returns the path for the tsv file. It
+utilizes the private method _check4_outfile to test if the files
+exists and in this case it dies, if the overwrite flag is not set. The
+path must indicate the location of a new or an existing and accessable
+file (if overwrite is set) to be valid.
+
+=cut
+
+sub tsv
+{
+    my $self = shift;
+
+    return $self->_check_4_outfile('tsv', @_);
+}
+
 =head2 run()
 
 Runs the usearch command according to the parameter settings.
