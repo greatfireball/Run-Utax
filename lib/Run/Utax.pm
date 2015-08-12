@@ -272,6 +272,57 @@ sub run
 
 =head1 Private subroutines
 
+=head2 _open4writing
+
+This methods checks if a given parameter is defined. If so, it tries
+to open the file for writing and stores the filehandle in a attribute
+
+=head3 parameters
+
+The name of the option. So far the following are supported:
+
+=over 4
+
+=item a) outfile
+
+File for the raw utax output
+
+=item b) tsv
+
+A file which contains the utax output as tab seperated file
+
+=item c) fasta
+
+A file which contains the original sequences, but the header of the
+sequences are supplemented with the utax lineage for that sequence
+
+=over
+
+=cut
+
+sub _open4writing
+{
+    my $self = shift;
+
+    # one parameter should be given
+    my $file = shift;
+
+    # the private attribute owns a leading underscore
+    $file = "_".$file;
+
+    # the attribute for the file handle has a leading _FH
+    my $filehandle = "_FH".$file;
+
+    if ($self->{$file})
+    {
+	my $fh;
+	open($fh, ">", $self->{$file}) || die "Unable to open the file '$self->{$file}' for writing: $!\n";
+	$self->{$filehandle} = $fh;
+    }
+
+    return $self;
+}
+
 =head2 _parse_and_check_utax()
 
 This subroutine checks is the utax program is available. Therefore the user can provide the program using three different ways:
