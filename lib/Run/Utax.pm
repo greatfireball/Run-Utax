@@ -540,11 +540,11 @@ sub _closefile
     # the attribute for the file handle has a leading _FH
     my $filehandle = "_FH".$file;
 
-    if (defined $self->{$filehandle})
+    if (defined $self->{$filehandle} && fileno $self->{$filehandle})
     {
 	close($self->{$filehandle}) || die "Unable to close the file '$self->{$file}': $!\n";
-	$self->{$filehandle} = undef;
     }
+    $self->{$filehandle} = undef;
 
     return $self;
 }
