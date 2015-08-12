@@ -536,6 +536,8 @@ sub _parse_arguments
     my $infile    = "";   # no default, as it is required
     my $outfile   = "-";  # default is printing to STDOUT
     my $overwrite = 0;    # default no overwriting
+    my $tsv       = undef;  # default undef
+    my $fasta     = undef;  # default undef
 
     my $ret = GetOptionsFromArray(
 	$self->{_orig_argv},
@@ -545,6 +547,8 @@ sub _parse_arguments
 	 'infile|input|i=s'  => \$infile,
 	 'outfile|o=s'       => \$outfile,
 	 'force|overwrite|f' => \$overwrite,
+	 'tsv=s'             => \$tsv,
+	 'fasta=s'           => \$fasta,
 	));
 
     # check if required parameters are set
@@ -569,6 +573,9 @@ sub _parse_arguments
     $self->taxonomy($taxonomy);
     $self->infile($infile);
     $self->outfile($outfile);
+    $self->fasta($fasta);
+    $self->tsv($tsv);
+
 }
 
 1;

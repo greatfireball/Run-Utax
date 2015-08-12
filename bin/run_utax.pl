@@ -94,6 +94,21 @@ This argument indicates that outputfiles should be overwritten if they
 are already exist. If this option is not speciefied, the script will
 die due to existing output files.
 
+=head2 --tsv
+
+This argument indicates the location of a tsv file which should be
+created from the raw utax output. If it is not speciefied, the file
+will not be created.
+
+=head2 --fasta
+
+This argument indicates the location of a fasta file which should be
+created from the raw utax output and the fasta input. The sequences
+are not altered, but the lineage information from utax will be added
+to the fasta headers. If it is not speciefied, the file will not be
+created.
+
+
 =head1 AUTHOR
 
 Frank Förster, E<lt>foersterfrank@gmx.deE<gt>
