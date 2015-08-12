@@ -9,7 +9,13 @@ our @ISA = qw();
 our $VERSION = '0.1';
 
 use File::Which qw(which);
+use File::Temp qw(tempfile);
+
 use Getopt::Long qw(GetOptionsFromArray :config pass_through);
+
+use Capture::Tiny ':all';
+
+use Bio::SeqIO;
 
 =head2 new()
 
@@ -36,6 +42,17 @@ sub new
     bless $self, $class;
 
     return $self;
+}
+
+=head2 DESTROY
+
+=cut
+
+sub DESTROY
+{
+    my $self = shift;
+
+    $self->_closeAllHandles();
 }
 
 =head2 usearchpath
@@ -198,11 +215,11 @@ sub overwrite
 
 =head2 outfile()
 
-This setter/getter sets or returns the path for the outfile
-file. Moreover, it checks, if the files exists and in this case it
-dies, if the overwrite flag is not set. The path must indicate the
-location of a new or an existing and accessable file (if overwrite is
-set) to be valid.
+This setter/getter sets or returns the path for the outfile file. It
+utilizes the private method _check4_outfile to test if the files
+exists and in this case it dies, if the overwrite flag is not set. The
+path must indicate the location of a new or an existing and accessable
+file (if overwrite is set) to be valid.
 
 =cut
 
@@ -210,23 +227,41 @@ sub outfile
 {
     my $self = shift;
 
-    # is a parameter given?
-    if (@_)
-    {
-	# still an argument available so set the path
-	my $outfile_path = shift;
+    return $self->_check_4_outfile('outfile', @_);
+}
 
-	# check if the file exists and can be accessed
-	if ($outfile_path ne "-" && -e $outfile_path && !($self->overwrite))
-	{
-	    die "Overwriting existing files is not allowed. Use option --force|--overwrite to enable that\n";
-	}
+=head2 fasta()
 
-	$self->{_outfile} = $outfile_path;
-    }
+This setter/getter sets or returns the path for the fasta file. It
+utilizes the private method _check4_outfile to test if the files
+exists and in this case it dies, if the overwrite flag is not set. The
+path must indicate the location of a new or an existing and accessable
+file (if overwrite is set) to be valid.
 
-    # finally return the value
-    return $self->{_outfile};
+=cut
+
+sub fasta
+{
+    my $self = shift;
+
+    return $self->_check_4_outfile('fasta', @_);
+}
+
+=head2 tsv()
+
+This setter/getter sets or returns the path for the tsv file. It
+utilizes the private method _check4_outfile to test if the files
+exists and in this case it dies, if the overwrite flag is not set. The
+path must indicate the location of a new or an existing and accessable
+file (if overwrite is set) to be valid.
+
+=cut
+
+sub tsv
+{
+    my $self = shift;
+
+    return $self->_check_4_outfile('tsv', @_);
 }
 
 =head2 run()
@@ -242,20 +277,305 @@ sub run
     $self->_parse_and_check_utax();
     $self->_parse_arguments();
 
+    # I need to create a temporary file for the utax output. The
+    # requested output file is required later
+    my ($fh, $filename) = tempfile();
+
     # construct the run command for usearch
     $self->{cmd} = [
 	$self->usearchpath(),
 	'-utax', $self->infile(),
 	'-db',   $self->database(),
 	'-tt',   $self->taxonomy(),
-	'-utaxout', $self->outfile,
+	'-utaxout', $filename,
 	'-utax_rawscore',
 	];
 
     printf STDERR "Command to run: '%s'\n", join(" ", @{$self->{cmd}});
+
+    # run the external program
+    my ($stdout, $stderr, $exit) = capture { system( @{$self->{cmd}} ) };
+
+    # print status messages
+    printf STDERR "Exit code for command was %d\n==== Captured STDOUT ====\n%s\n==== Captured STDERR ====\n%s", $exit, $stdout, $stderr;
+
+    # now we need to parse the output:
+    # - if a tsv is requested, the file will be created
+    # - if a fasta is requested, the file will be created
+    # - the raw utax output is copied into the output file which will be created
+
+    # open a tsv file, if requested
+    $self->_open4writing('tsv');
+    $self->_open4writing('fasta');
+    $self->_open4writing('outfile');
+
+    # a handle for the utax output is alread present in $fh
+    # reset the position
+    seek($fh, 0, 0) || die "Unable to reset file position for file '$filename': $!\n";
+
+    # utax returns a different order of sequences, therefore we need to track the ID lineage pairs
+    my %id_lineage = ();
+
+    # if tsv is requested, print a header
+    my $tsvFH = $self->{_FH_tsv};
+    if ($tsvFH)
+    {
+	print $tsvFH "#", join("\t", qw(ID kingdom phylum class order family genus species)), "\n";
+    }
+
+    # get the output file handle
+    my $outFH = $self->{_FH_outfile};
+
+    # loop through the original utax output
+    while (<$fh>)
+    {
+	# write the raw output to the outputfile
+
+	print $outFH $_;
+
+	chomp($_);
+
+	my @fields = split(/\t/, $_);
+
+	# first field contains the id, second field the lineage, third
+	# field a plus sign
+
+	my $id = $fields[0];
+	my @lineage = split(/,/, $fields[1]);
+
+	# workaround a undocumented utax behavior
+	# sometimes it prints two line for an ID, but then the first line contains
+	# * for lineage and plus sign
+	# skip those lines
+	next if ($fields[1] eq "*" && $fields[2] eq "*");
+
+	@lineage = map {
+	    $_ =~ /([^_]+)_{1,2}(\d+)\(([\d.]+)\)$/;
+	    {sciname => $1, taxid => $2, score => $3}
+	} (@lineage);
+
+	# print sciname and score to the tsv
+	if ($tsvFH)
+	{
+	    print $tsvFH join("\t", ($id, map {sprintf "%s (%s)", $_->{sciname}, $_->{score}} (@lineage))), "\n";
+	}
+
+	# store the lineage information to the id if not already present
+	if (exists $id_lineage{$id})
+	{
+	    die "utax returned the identical id ($id) twice...\n";
+	}
+
+	$id_lineage{$id} = $fields[1];
+
+    }
+
+    # last thing to do is writing the fasta file, if requested
+    if (defined $self->{_FH_fasta})
+    {
+
+	# we need to open the input data
+	my $seqin = Bio::SeqIO->new(
+	    -file => $self->{_infile}
+	    );
+
+	# let Bio::SeqIO write our output file if we want it
+	my $seqout = Bio::SeqIO->new(
+	    -format => 'fasta',
+	    -fh => $self->{_FH_fasta}
+	    );
+
+	# loop through the sequences and add the lineage infomation to
+	# the description and write it to the output file
+
+	while (my $inseq = $seqin->next_seq) {
+	    my $lin = "n.d.";
+	    unless (exists $id_lineage{$inseq->id()})
+	    {
+		warn "No lineage information for id: ", $inseq->id(), "\n";
+	    } else {
+		$lin = $id_lineage{$inseq->id()};
+	    }
+		$inseq->desc($inseq->desc." utax: ".$lin);
+		$seqout->write_seq($inseq);
+	}
+
+	# done
+    }
+
+    # close all files
+    $self->_closefile('tsv');
+    $self->_closefile('fasta');
+    $self->_closefile('outfile');
+
 }
 
 =head1 Private subroutines
+
+=head2 _check_4_outfile
+
+This method is used by fasta/tsv/outfile. It tests if the file exists
+and if in that case overwrite is set.
+
+=head3 parameters
+
+First parameter ist the type of the file. This determines the
+attribute name. Currently supported are
+
+=over 4
+
+=item a) outfile
+
+=item b) fasta
+
+=item c) tsv
+
+=back
+
+=cut
+
+sub _check_4_outfile
+{
+    my $self = shift;
+
+    # next parameter is the type
+    my $type = shift;
+    # the attribute has a leading _
+    $type = "_".$type;
+
+    # is another parameter given?
+    if (@_)
+    {
+	# still an argument available so set the path
+	my $file_path = shift;
+
+	# check if the file exists and can be accessed
+	if (defined $file_path && $file_path ne "-" && -e $file_path && !($self->overwrite))
+	{
+	    die "Overwriting existing files is not allowed. Use option --force|--overwrite to enable that\n";
+	}
+
+	$self->{$type} = $file_path;
+    }
+
+    # finally return the value
+    return $self->{$type};
+}
+
+=head2 _open4writing
+
+This methods checks if a given parameter is defined. If so, it tries
+to open the file for writing and stores the filehandle in a attribute
+
+=head3 parameters
+
+The name of the option. So far the following are supported:
+
+=over 4
+
+=item a) outfile
+
+File for the raw utax output
+
+=item b) tsv
+
+A file which contains the utax output as tab seperated file
+
+=item c) fasta
+
+A file which contains the original sequences, but the header of the
+sequences are supplemented with the utax lineage for that sequence
+
+=over
+
+=cut
+
+sub _open4writing
+{
+    my $self = shift;
+
+    # one parameter should be given
+    my $file = shift;
+
+    # the private attribute owns a leading underscore
+    $file = "_".$file;
+
+    # the attribute for the file handle has a leading _FH
+    my $filehandle = "_FH".$file;
+
+    if ($self->{$file})
+    {
+	# sometimes we want to have the output on stdout, here we can capture that
+	if ($self->{$file} ne "-")
+	{
+	    # create a new file
+	    my $fh;
+	    open($fh, ">", $self->{$file}) || die "Unable to open the file '$self->{$file}' for writing: $!\n";
+	    $self->{$filehandle} = $fh;
+	} else {
+	    # we want to write to STDOUT
+	    $self->{$filehandle} = \*STDOUT;
+	}
+    }
+
+    return $self;
+}
+
+=head2 _closefile
+
+This methods closes a specified file (given by filename) and set the corresponding filehandle to undef.
+
+=cut
+
+sub _closefile
+{
+    my $self = shift;
+
+    # one parameter should be given
+    my $file = shift;
+
+    # the private attribute owns a leading underscore
+    $file = "_".$file;
+
+    # the attribute for the file handle has a leading _FH
+    my $filehandle = "_FH".$file;
+
+    if (defined $self->{$filehandle} && fileno $self->{$filehandle})
+    {
+	close($self->{$filehandle}) || die "Unable to close the file '$self->{$file}': $!\n";
+    }
+    $self->{$filehandle} = undef;
+
+    return $self;
+}
+
+
+=head2 _closeAllHandles
+
+This methods closes all file handles from the file handle attributed.
+Should be used as part of the destructor.
+
+=cut
+
+sub _closeAllHandles
+{
+    my $self = shift;
+
+    # find all attributes which represents filehandles
+    my @filehandles = grep {$_ =~ /^_FH_/} (keys %{$self});
+
+    # determine the filename attribute from the filehandle attribute and call _closefile
+    foreach my $fh (@filehandles)
+    {
+	# the filename should be stored in a attribute without the leading _FH
+	my $filename = $fh;
+	$filename =~ s/^_FH//;
+
+	$self->_closefile($filename);
+    }
+
+    return $self;
+}
 
 =head2 _parse_and_check_utax()
 
@@ -324,6 +644,8 @@ sub _parse_arguments
     my $infile    = "";   # no default, as it is required
     my $outfile   = "-";  # default is printing to STDOUT
     my $overwrite = 0;    # default no overwriting
+    my $tsv       = undef;  # default undef
+    my $fasta     = undef;  # default undef
 
     my $ret = GetOptionsFromArray(
 	$self->{_orig_argv},
@@ -333,6 +655,8 @@ sub _parse_arguments
 	 'infile|input|i=s'  => \$infile,
 	 'outfile|o=s'       => \$outfile,
 	 'force|overwrite|f' => \$overwrite,
+	 'tsv=s'             => \$tsv,
+	 'fasta=s'           => \$fasta,
 	));
 
     # check if required parameters are set
@@ -357,6 +681,9 @@ sub _parse_arguments
     $self->taxonomy($taxonomy);
     $self->infile($infile);
     $self->outfile($outfile);
+    $self->fasta($fasta);
+    $self->tsv($tsv);
+
 }
 
 1;

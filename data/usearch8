@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Getopt::Long;
+
+use FindBin;
+
+# call will be
+# usearch8 -utax data/example.fa -db data/example.utax.udb -tt data/example.utax.tax -utaxout /tmp/NBh3ZZjiFo -utax_rawscore
+
+my $ret = GetOptions(
+     'utax=s'        => \(my $inputfile),
+     'db=s'          => \(my $dbfile),
+     'tt=s'          => \(my $taxonomyfile),
+     'utaxout=s'     => \(my $outputfile),
+     'utax_rawscore' => \(my $rawscore),
+   );
+
+my $filename = $FindBin::Bin."/out.expected"; 
+open(FH, "<", $filename) || die "Unable to open file '$filename': $!\n";
+open(WH, ">", $outputfile) || die "Unable to open file '$outputfile': $!\n";
+while (<FH>)
+{
+	print WH $_;
+}
+close(WH) || die "Unable to close '$outputfile': $!\n";
+close(FH) || die "Unable to close '$filename': $!\n";

@@ -10,11 +10,15 @@ WriteMakefile(
 	'File::Which'  => 0,     # to determine the location of usearch8
 	'Test::Exception' => 0,  # needed to test for die statements
 	'Getopt::Long' => 0,
+	'File::Temp' => 0,       # creating temporary files
+	'Capture::Tiny' => 0,    # executing a command an capturing stdout/stderr/success
+	'Bio::SeqIO'    => 0,    # accessing fasta input data
+	'Test::File::Contents' => 0, # comparing files
     }, 
     EXE_FILES         => [
 	"bin/run_utax.pl",
     ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Run/Utax.pm', # retrieve abstract from module
-       AUTHOR         => 'Frank Förster <frank@>') : ()),
+       AUTHOR         => 'Frank Förster <foersterfrank@gmx.de>') : ()),
 );
