@@ -13,6 +13,7 @@ WriteMakefile(
 	'File::Temp' => 0,       # creating temporary files
 	'Capture::Tiny' => 0,    # executing a command an capturing stdout/stderr/success
 	'Bio::SeqIO'    => 0,    # accessing fasta input data
+	'Test::File::Contents' => 0, # comparing files
     }, 
     EXE_FILES         => [
 	"bin/run_utax.pl",
