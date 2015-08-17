@@ -299,6 +299,12 @@ sub run
     # print status messages
     printf STDERR "Exit code for command was %d\n==== Captured STDOUT ====\n%s\n==== Captured STDERR ====\n%s", $exit, $stdout, $stderr;
 
+    # if the exit code was not 0 we need to die
+    unless ($exit == 0)
+    {
+	die "The call of usearch8 failed!\n";
+    }
+
     # now we need to parse the output:
     # - if a tsv is requested, the file will be created
     # - if a fasta is requested, the file will be created
