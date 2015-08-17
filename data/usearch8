@@ -6,6 +6,7 @@ use warnings;
 use Getopt::Long;
 
 use FindBin;
+use File::Basename;
 
 # call will be
 # usearch8 -utax data/example.fa -db data/example.utax.udb -tt data/example.utax.tax -utaxout /tmp/NBh3ZZjiFo -utax_rawscore
@@ -18,7 +19,8 @@ my $ret = GetOptions(
      'utax_rawscore' => \(my $rawscore),
    );
 
-my $filename = $FindBin::Bin."/out.expected"; 
+my $filename = $FindBin::Bin."/".basename($inputfile).".out.expected";
+
 open(FH, "<", $filename) || die "Unable to open file '$filename': $!\n";
 open(WH, ">", $outputfile) || die "Unable to open file '$outputfile': $!\n";
 while (<FH>)
