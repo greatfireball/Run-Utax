@@ -16,11 +16,11 @@ data/usearch8_non_exec
 
 # test data set
 data/example.fa
+data/example.fa.out.expected
 data/example.utax.tax
 data/example.utax.udb
-data/out.expected
-data/out.existing
 data/fasta.expected
+data/out.existing
 data/tsv.expected
 
 # test scripts

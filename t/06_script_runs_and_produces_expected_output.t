@@ -24,7 +24,7 @@ my $options = {
 
 script_runs($script_args, $options, "Test if script runs our test set with fasta file and given utax program");
 
-files_eq($filename, "data/out.expected", "Output file contains the expected output");
+files_eq($filename, "data/example.fa.out.expected", "Output file contains the expected output");
 
 $script_args = [
                    'blib/script/run_utax.pl',
@@ -55,7 +55,7 @@ $options = {
 
 script_runs($script_args, $options, "Test if script runs our test set with fasta file and given utax program");
 
-files_eq($filename, "data/out.expected", "Output file contains the expected output");
+files_eq($filename, "data/example.fa.out.expected", "Output file contains the expected output");
 
 my (undef, $tsvout) = File::Temp::tempfile;
 my (undef, $fastaout) = File::Temp::tempfile;
@@ -77,7 +77,7 @@ $options = {
 
 script_runs($script_args, $options, "Test if script runs our test set with fasta file and given utax program");
 
-files_eq($filename, "data/out.expected", "Output file contains the expected output");
+files_eq($filename, "data/example.fa.out.expected", "Output file contains the expected output");
 files_eq($tsvout, "data/tsv.expected", "Output tsv file contains the expected output");
 files_eq($fastaout, "data/fasta.expected", "Output fasta file contains the expected output");
 
