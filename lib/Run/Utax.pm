@@ -300,9 +300,11 @@ sub run
     printf STDERR "Exit code for command was %d\n==== Captured STDOUT ====\n%s\n==== Captured STDERR ====\n%s", $exit, $stdout, $stderr;
 
     # if the exit code was not 0 we need to die
+    # uncoverable branch true
     unless ($exit == 0)
     {
-	die "The call of usearch8 failed!\n";
+        # uncoverable statement
+    	die "The call of usearch8 failed!\n";
     }
 
     # now we need to parse the output:
