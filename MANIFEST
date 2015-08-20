@@ -35,3 +35,5 @@ t/30_Run-Utax_loading.t
 t/31_Run-Utax_run.t
 t/32_Run-Utax-check-parameters.t
 t/33_Run-Utax-check-setter_getter.t
+t/34_double_IDs.t
+t/35_missing_lineage.t
