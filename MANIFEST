@@ -17,6 +17,13 @@ data/usearch8_non_exec
 # test data set
 data/example.fa
 data/example.fa.out.expected
+data/example.missing_lineage.fa
+data/example.missing_lineage.fa.out.expected
+data/example.missing_lineage.fa.out.fasta.expected
+data/example.missing_lineage.fa.out.raw.expected
+data/example.missing_lineage.fa.out.tsv.expected
+data/example.multipletimes.fa
+data/example.multipletimes.fa.out.expected
 data/example.utax.tax
 data/example.utax.udb
 data/fasta.expected
